@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    restart: always
+    volumes:
+      # This volume persists the runner's configuration file (config.toml)
+      # in the 'config' directory on the host machine.
+      - ./config:/etc/gitlab-runner
+
+      # This volume maps the host's Docker socket into the container,
+      # allowing the runner to execute Docker commands for CI/CD jobs.
+      - /var/run/docker.sock:/var/run/docker.sock
